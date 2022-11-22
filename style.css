@@ -4,6 +4,7 @@
   background-color: rgba(255, 228, 196, 0.572);
   border: 2px dotted purple;
   display: flex;
+  position: relative;
 }
 
 .snake {
@@ -16,12 +17,17 @@
 .food {
   width: 50px;
   height: 50px;
-  background-color: rgba(92, 92, 91, 0.361);
+  background-color: rgba(92, 92, 91, 0.143);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 40px;
+  position: absolute;
+}
+
+.hidden {
+  display: none;
 }
 
 * {
@@ -50,4 +56,25 @@ h1 {
   float: top;
   margin-top: 30px;
   background-color: rgba(165, 42, 42, 0.158);
+}
+
+.score-section {
+  width: 225px;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  font-size: 32px;
+  padding: 62px;
+  background-color: rgba(0, 255, 89, 0.079);
+  padding-bottom: 130px;
+}
+
+.space {
+  width: 225px;
+}
+
+.score {
+  position: absolute;
+  bottom: 42%;
+  left: 11%;
 }

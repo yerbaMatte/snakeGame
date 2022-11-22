@@ -8,14 +8,20 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Snake Game 🐍</h1>
-    <div class="game-container">
-      <div class="field">
-        <svg class="snake"></svg>
-        <div class="food">🍎</div>
+    <main>
+      <h1>Snake Game 🐍</h1>
+      <div class="game-container">
+        <section class="score-section">
+          <h2>SCORE</h2>
+          <p class="score">00000</p>
+        </section>
+        <div class="field">
+          <svg class="snake"></svg>
+          <div class="food hidden"></div>
+        </div>
+        <section class="space"></section>
       </div>
-    </div>
-
+    </main>
     <script src="script.js"></script>
   </body>
 </html>

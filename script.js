@@ -1,79 +1,130 @@
 'use strict';
 
 const snake = document.querySelector('.snake');
+const food = document.querySelector('.food');
+const scoreDisplay = document.querySelector('.score');
+
 let xORy = '';
 let addSubs;
 //Initial position
-let cubePosition = {
+let snakePosition = {
   x: 0,
   y: 0,
 };
+let foodPosition = {
+  x: 50,
+  y: 50,
+};
+let score = 0;
 let transform = '';
-let zero = 0;
+let foodTranslation = '';
+let gameSTART = 0;
 
 //addEvent Arrows
 addEventListener('keydown', function (e) {
   if (e.key === 'ArrowUp') {
     xORy = 'y';
     addSubs = -50;
-    cubePosition[xORy] += addSubs;
+    // snakePosition[xORy] += addSubs;
     checker();
   }
   if (e.key === 'ArrowDown') {
     xORy = 'y';
     addSubs = 50;
-    cubePosition[xORy] += addSubs;
+    // snakePosition[xORy] += addSubs;
     checker();
   }
   if (e.key === 'ArrowLeft') {
     xORy = 'x';
     addSubs = -50;
-    cubePosition[xORy] += addSubs;
+    // snakePosition[xORy] += addSubs;
     checker();
   }
   if (e.key === 'ArrowRight') {
     xORy = 'x';
     addSubs = 50;
-    cubePosition[xORy] += addSubs;
+    // snakePosition[xORy] += addSubs;
     checker();
   }
   updatePosition();
-  console.log(cubePosition, transform, xORy);
+
+  // ---- MENU INTERVAL START -----
+  if (gameSTART === 0) {
+    foodInterval();
+    setInterval(foodInterval, 5000);
+    gameSTART = 1;
+  }
+  // console.log(cubePosition, transform, xORy);
 });
 
 function checker() {
   //check if x
   function xcheck() {
-    if (cubePosition.x > 450) {
-      cubePosition.x = 0;
+    if (snakePosition.x > 450) {
+      snakePosition.x = 0;
     }
-    if (cubePosition.x < 0) {
-      cubePosition.x = 450;
+    if (snakePosition.x < 0) {
+      snakePosition.x = 450;
     }
   }
   //check if y
   function ycheck() {
-    if (cubePosition.y > 450) {
-      cubePosition.y = 0;
+    if (snakePosition.y > 450) {
+      snakePosition.y = 0;
     }
-    if (cubePosition.y < 0) {
-      cubePosition.y = 450;
+    if (snakePosition.y < 0) {
+      snakePosition.y = 450;
     }
   }
+
   xcheck();
   ycheck();
 }
 
 //update-position
 function updatePosition() {
-  transform = `translate(${cubePosition.x},${cubePosition.y})`;
+  transform = `translate(${snakePosition.x},${snakePosition.y})`;
   snake.setAttribute('transform', transform);
 }
 
-const moving = setInterval(move, 1000);
+// ~~~~ AUTO-MOVING SNAKE ~~~~
+const snakeInterval = setInterval(move, 200);
 
 function move() {
-  cubePosition[xORy] += addSubs;
+  snakePosition[xORy] += addSubs;
   checker();
   updatePosition();
+  foodEaten();
 }
+// ____ MENU ____
+const menu = ['🍎', '🍐', '🍓', '🍉', '🌶', '🥕', '🍑', '🥥', '🥑', '🥔'];
+
+function foodInterval() {
+  //Generate coordinates
+  foodPosition.x = Math.trunc(10 * Math.random()) * 50;
+  foodPosition.y = Math.trunc(10 * Math.random()) * 50;
+  foodTranslation = `translate(${foodPosition.x}px, ${foodPosition.y}px)`;
+
+  //Add coordinates to food current position
+  food.innerHTML = menu[Math.trunc(10 * Math.random())];
+  food.style.setProperty('transform', foodTranslation);
+
+  food.classList.remove('hidden');
+}
+
+//Did the snake manage to catch the food?
+function foodEaten() {
+  if (
+    snakePosition.x === foodPosition.x &&
+    snakePosition.y === foodPosition.y
+  ) {
+    food.classList.add('hidden');
+    foodInterval();
+    clearInterval(foodInterval);
+    console.log(snakePosition, foodPosition);
+    score++;
+    scoreDisplay.textContent = `${score}`.padStart(5, 0);
+  }
+}
+
+const test = snake.getBoundingClientRect();
