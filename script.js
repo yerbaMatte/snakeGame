@@ -3,6 +3,7 @@
 const snake = document.querySelector('.snake');
 const food = document.querySelector('.food');
 const scoreDisplay = document.querySelector('.score');
+const fieldElement = document.querySelector('.field');
 
 let xORy = '';
 let addSubs;
@@ -127,4 +128,11 @@ function foodEaten() {
   }
 }
 
-const test = snake.getBoundingClientRect();
+function createBody() {
+  fieldElement.insertAdjacentHTML(
+    'afterbegin',
+    '<svg class="snake snake-body" transform="translate(0,50)"></svg>'
+  );
+}
+
+createBody();
