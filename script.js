@@ -26,7 +26,7 @@ addEventListener('keydown', function (e) {
   if (e.key === 'ArrowUp') {
     xORy = 'y';
     addSubs = -50;
-    // snakePosition[xORy] += addSubs;
+    // snakePosition[xORy] += addSubs
     checker();
   }
   if (e.key === 'ArrowDown') {
